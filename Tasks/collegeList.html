@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+    <title>College List</title>
+    <style>
+        body {
+            background: linear-gradient(to right, rgba(219, 63, 246, 0.5), rgba(192, 241, 70, 0.5))
+        }
+
+        #form,
+        .table {
+            width: 80%;
+            margin-top: 4%;
+            margin-left: 4%;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="form">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">College Name</label>
+            <input type="text" class="form-control" id="courseName" aria-describedby="emailHelp" autocomplete="off">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Course</label>
+            <input type="text" class="form-control" id="course" autocomplete="off">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Current Year</label>
+            <input type="text" class="form-control" id="year" autocomplete="off">
+        </div>
+
+        <button type="submit" class="btn btn-warning" id="btn">ADD List</button>
+    </form>
+
+    <table class="table table-success table-striped" id="dataTable">
+        <thead>
+            <tr>
+                <th scope="col">College Name</th>
+                <th scope="col">Course</th>
+                <th scope="col">Current Year</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+
+    <script>
+        let name = document.getElementById("courseName");
+        let course = document.getElementById("course");
+        let year = document.getElementById("year");
+
+        let btn = document.getElementById("btn");
+
+        let tbody = document.getElementById("tbody");
+
+        let table = document.getElementById("dataTable");
+
+        function displayTable() {
+            event.preventDefault();
+
+
+
+            let courseName = name.value.trim();
+            let collegeCourse = course.value.trim();
+            let currYear = year.value.trim();
+
+            let row = document.createElement("tr");
+            // console.log("Row=", row);
+
+            let td1 = document.createElement("td");
+            // console.log("td= ", tableData);
+            td1.innerHTML = courseName;
+
+            let td2 = document.createElement("td");
+            td2.innerHTML = collegeCourse;
+
+            let td3 = document.createElement("td");
+            td3.innerHTML = currYear;
+
+            row.appendChild(td1);
+            row.appendChild(td2);
+            row.appendChild(td3);
+
+            tbody.appendChild(row);
+            table.appendChild(tbody);
+            console.log("Row=", row);
+
+            name.value = "";
+            course.value = "";
+            year.value = "";
+        }
+
+        btn.addEventListener("click", displayTable);
+    </script>
+</body>
+
+</html>
