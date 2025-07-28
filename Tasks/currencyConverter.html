@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+    <title>Currency Convertor</title>
+
+    <style>
+        .container {
+            width: 50%;
+            margin-top: 10%;
+            border: 1px solid #fff;
+            border-radius: 30px;
+            padding: 50px;
+        }
+
+        .custom_select {
+            background-color: transparent;
+            border: 1.5px solid #ccc;
+            border-radius: 7px;
+            padding: 0 0.8rem;
+        }
+
+        option {
+            background-color: rgb(38, 37, 41);
+            color: white;
+        }
+
+        #swapBtn:hover,
+        .form-control:hover,
+        .custom_select:hover {
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body class="bg-dark">
+
+    <div class="container">
+        <h4 class="text-light-emphasis mb-4">Currency Convertor</h4>
+        <form>
+            <div class="input-group mb-3">
+                <input type="number" class="form-control text-light bg-transparent border-light" id="input"
+                    autocomplete="off" aria-label="Text input with dropdown button">
+                <select id="from" class="custom_select text-light-emphasis" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <!-- options -->
+                </select>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button id="swapBtn"
+                    class="btn btn-outline-light col-2 bg-transparent text-light d-flex justify-content-center">
+                    <i class="bi bi-arrow-repeat"></i>
+                </button>
+            </div>
+
+            <div class="input-group mt-3">
+                <input type="text" class="form-control text-light bg-transparent border-light" readonly id="output"
+                    aria-label="Text input with dropdown button">
+                <select id="to" class="custom_select text-light-emphasis" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <!-- options -->
+                </select>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let currencies = ["INR", "USD", "EUR", "JPY"];
+
+        let selectFrom = document.getElementById("from");
+        // console.log(selectFrom);
+
+        let selectTo = document.getElementById("to");
+        // console.log(selectTo);
+
+        let amtInput = document.getElementById("input");
+        // console.log(amtInput);
+
+        let output = document.getElementById("output");
+        // console.log(output);
+
+        let btn = document.getElementById("swapBtn");
+        async function showList() {
+            let selects = document.querySelectorAll("select");
+            // console.log(selects);
+            selects.forEach((select) => {
+                // console.log(select);
+                currencies.map((currency) => {
+                    // console.log(currency);
+                    select.innerHTML += `<option value=${currency}>${currency}</option>`;
+                    // console.log(select);
+                });
+            });
+        }
+        showList();
+
+        async function convert(amt, from, to) {
+            let data = await fetch(`https://api.exchangerate-api.com/v4/latest/${from}`);
+            // console.log("api data fetch= ", data);
+
+            let currencyData = await data.json();
+            // console.log("js object= ", currencyData);
+
+            let getRate = currencyData.rates[to];
+            // console.log("getRate=", getRate);
+
+            let convertValue = (amt * getRate).toFixed(2);
+            // console.log("converted value= ", convertValue);
+            return convertValue;
+        }
+
+        async function convertRate(event) {
+            event.preventDefault();
+            let amt = amtInput.value;
+            let from = selectFrom.value;
+            let to = selectTo.value;
+
+            let finalOutput = await convert(amt, from, to);
+            // console.log(finalOutput);
+
+            output.value = finalOutput;
+            console.log(output.value);
+
+            amtInput.value = "";
+        }
+
+        btn.addEventListener("click", convertRate);
+    </script>
+</body>
+
+</html>
