@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Delivery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            max-width: 300px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            margin: 8px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        #errMgs {
+            color: red;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Message Delivery System</h1>
+    <p>Enter a message below and press "Enter" to deliver it.</p>
+    <input type="text" id="mgsInput" autocomplete="off">
+    <div id="mgsContainer">
+
+    </div>
+
+    <script>
+        let input = document.getElementById("mgsInput");
+        let container = document.getElementById("mgsContainer");
+
+        input.addEventListener("keypress", (event) => {
+            if (event.key == "Enter") {
+                if (input.value == "") {
+                    let err = document.createElement("p");
+                    err.innerHTML = "No Message entered! please enter some message";
+                    err.style.color = "red";
+                    err.id = "errMgs";
+                    container.appendChild(err);
+                    // console.log(err);
+
+                    setInterval(() => {
+                        let clearErr = document.getElementById("errMgs");
+                        if (clearErr) {
+                            container.removeChild(clearErr);
+                        }
+                    }, 2000);
+                }
+                else {
+                    let mgsPara = document.createElement("p");
+                    mgsPara.innerHTML = input.value;
+                    container.appendChild(mgsPara);
+                    input.value = "";
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>

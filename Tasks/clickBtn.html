@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Button Count</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #btn {
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #btn:hover {
+            background-color: #0056b3;
+        }
+
+        #displayCount {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn" onclick="countClick()">Click Me</button>
+    <p id="displayCount"></p>
+
+    <script>
+        let count = 0;
+        const countClick = () => {
+            count++;
+            let increase = document.getElementById("displayCount");
+            increase.innerHTML = `You clicked button <span style="color: red;">${count}</span> times`;
+        }
+    </script>
+</body>
+
+</html>

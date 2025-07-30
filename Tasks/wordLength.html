@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>word length</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 250px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #ans {
+            font-size: 20px;
+            color: red;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Enter Word</p>
+    <input type="text" id="input">
+    <p id="ans" style="color: red;"></p>
+    <button id="btn">Get Length</button>
+
+    <script>
+        let btn = document.getElementById("btn");
+        let ans = document.getElementById("ans");
+
+        btn.addEventListener("click", () => {
+            let inputEle = document.getElementById("input")
+            let input = inputEle.value.trim();
+            let length = input.length;
+            // console.log(length);
+
+            ans.innerHTML = length;
+
+            inputEle.value = "";
+        });
+    </script>
+</body>
+
+</html>
